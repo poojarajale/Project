@@ -1,0 +1,133 @@
+<div class="container mt-3">
+
+
+
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        {{contactForm.value | json}}
+
+        <div class="form-group">
+            <label for="pass"> Contact Person Name</label>
+            <input [class.is-invalid]="person_name.invalid && person_name.touched" required formControlName="person_name" type="text"
+                class="form-control">
+            <!-- Conditional Error Messages -->
+            <div *ngIf="person_name.invalid && person_name.touched">
+                <small *ngIf="person_name.errors?.required" class="text-danger"> Name is Required</small>
+                <small *ngIf="person_name.errors?.minlength" class="text-danger">Minimum 3 Characters required</small>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="pass">Company</label>
+            <input [class.is-invalid]="company_name.invalid && company_name.touched " required formControlName="company_name"
+                type="text" class="form-control">
+            <!-- Conditional Error Messages -->
+            <div *ngIf="company_name.invalid && company_name.touched">
+                <small *ngIf="company_name.errors?.required" class="text-danger">company_name Name is Required</small>
+                <small *ngIf="company_name.errors?.minlength" class="text-danger">Minimum 3 Characters required</small>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="pass">Designation</label>
+            <input [class.is-invalid]="designation.invalid && designation.touched " required
+                formControlName="designation" type="text" class="form-control">
+            <!-- Conditional Error Messages -->
+            <div *ngIf="designation.invalid && designation.touched">
+                <small *ngIf="designation.errors?.required" class="text-danger">Designation is Required</small>
+                <small *ngIf="designation.errors?.minlength" class="text-danger">Minimum 3 Characters required</small>
+            </div>
+        </div>
+
+
+        <div class="row">
+        <h5><label for="contact_detail">Contact Details:        <button [disabled]="!addmoreButton" (click)="addContact()" class="btn btn-primary mt-4 ml-3">Add Contact</button></label></h5>
+        </div>
+        <div formArrayName="contact_details" *ngFor="let contact of contactForm.get('contact_details')['controls']; let i = index;">
+            <div [formGroupName]="i">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label for="flag">Flag</label>
+                            <select
+                                [class.is-invalid]="contactData.controls[i].get('flag').invalid && contactData.controls[i].get('flag').touched"
+                                class="custom-select" formControlName="flag">
+                                <option value="IMP" selected>IMP</option>
+                                <option value="VIMP">VIMP</option>
+                                <option value="URGENT">URGENT</option>
+                            </select>
+                            <!-- Conditional Error Messages -->
+                            <div
+                                *ngIf="contactData.controls[i].get('flag').invalid && contactData.controls[i].get('flag').touched">
+                                <small *ngIf="contactData.controls[i].get('flag').errors?.required"
+                                    class="text-danger">Select Flag</small>
+                                <small *ngIf="contactData.controls[i].get('flag').errors.minlength"
+                                    class="text-danger">Select Flag</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label for="category">Type</label>
+                            <select
+                                [class.is-invalid]="contactData.controls[i].get('type').invalid && contactData.controls[i].get('type').touched"
+                                class="custom-select" formControlName="type">
+                                <option value="primary" selected>Primary</option>
+                                <option value="secondary">Secondary</option>
+                                <option value="office">Office</option>
+                            </select>
+                            <!-- Conditional Error Messages -->
+                            <div
+                                *ngIf="contactData.controls[i].get('type').invalid && contactData.controls[i].get('type').touched">
+                                <small *ngIf="contactData.controls[i].get('type').errors?.required"
+                                    class="text-danger">Select type</small>
+                                <small *ngIf="contactData.controls[i].get('type').errors.minlength"
+                                    class="text-danger">Select Type</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="email">Email address</label>
+                            <input
+                                [class.is-invalid]="contactData.controls[i].get('email_id').invalid && contactData.controls[i].get('email_id').touched"
+                                formControlName="email_id" type="email_id" class="form-control" id="email_id">
+                                <!-- Conditional Error Messages -->
+                            <div *ngIf="contactData.controls[i].get('email_id').invalid && contactData.controls[i].get('email_id').touched">
+                                <small *ngIf="contactData.controls[i].get('email_id').errors?.required"
+                                    class="text-danger">email_id is Required</small>
+                                <small *ngIf="contactData.controls[i].get('email_id').errors.pattern"
+                                    class="text-danger">Enter email_id Only</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="pass">phone_no</label>
+                            <input
+                                [class.is-invalid]="contactData.controls[i].get('phone_no').invalid && contactData.controls[i].get('phone_no').touched"
+                                formControlName="phone_no" type="tel" class="form-control">
+                            <div
+                                *ngIf="contactData.controls[i].get('phone_no').invalid && contactData.controls[i].get('phone_no').touched">
+                                <small *ngIf="contactData.controls[i].get('phone_no').errors?.required"
+                                    class="text-danger">phone_no is Required</small>
+                                <small
+                                    *ngIf="contactData.controls[i].get('phone_no').errors?.minlength || contactData.controls[i].get('phone_no').errors?.maxlength"
+                                    class="text-danger">10
+                                    digits are
+                                    required</small>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-2">
+                            <button [class.d-none]='i===0' (click)="deleteContact(i)"
+                                class="btn btn-danger mt-4.5 ml-3">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button [disabled]="!contactForm.valid" type='submit' class="btn btn-success mr-3">Save Data</button>
+    </form>
+</div>

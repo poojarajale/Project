@@ -1,0 +1,32 @@
+<h2 style="text-align: center;">User Info</h2><br><br>
+<table class="table table-hover">
+  <thead>
+  <tr>
+      <td><h4> Name</h4></td>
+      <td><h4>Company</h4></td>
+      <td><h4>Designation</h4></td>
+      <td><h4>Flag</h4></td>
+      <td><h4>Contact No</h4></td>
+      <td><h4>Email</h4></td>
+      <td colspan="2"><h4>Actions</h4></td>
+  </tr>
+  </thead>
+
+  <tbody>
+      <tr *ngFor="let users of userData">
+          <td>{{ users.person_name }}</td>
+          <td>{{ users.company_name }}</td>
+          <td>{{users.designation }}</td>
+        <td *ngFor="let user of users.contact_details">{{user.flag}} </td> 
+        <td *ngFor="let user of users.contact_details">{{user.type}} </td>
+        <td *ngFor="let user of users.contact_details">{{user.phone_no}} </td> 
+        <td *ngFor="let user of users.contact_details">{{user.email_id}} </td>
+
+          
+            <!-- <td *ngFor="let user of users.address">{{user.city}} </td> 
+             <td *ngFor="let user of users.address">{{user.pin}} </td> -->
+          <td><a [routerLink]="['/edit',users._id]" class="btn btn-primary">Edit</a></td>
+          <td><a href="getAll" (click)="deleteOne(users._id)" class="btn btn-danger">Delete</a></td>
+      </tr>
+  </tbody>
+</table>

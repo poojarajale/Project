@@ -1,0 +1,137 @@
+<body class="body">
+
+    <div class="container shadow-lg border mt-5 rounded">
+        <div class="row">
+            <div class="col-md-5 bg-color">
+                <div class="rounded-circle p-4 text-center my-2">
+                    <i class="fa fa-user-circle display-2 text-white"></i>
+                </div>
+                <div class="text-center m-2 p-4">
+                    <h3>Let's get you set up</h3>
+                    <p>It should only take a couple of minutes to pair with your watch</p>
+                </div>
+                <div class="text-center mt-3 mb-5">
+                    <button class="btn btn-dark rounded-circle">
+                        <i class="fa fa-greater-than"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="container mt-4">
+
+                    <!--User Form start-->
+                    <form action="" [formGroup]="userProfileForm" (ngSubmit)="onSubmit()">
+                        <label for="Name">Name</label>
+                        <div class="form-group">
+                            <input [ngClass]="{ 'is-invalid': submitted && f.user_name.errors }" type="text"
+                                class="form-control" formControlName="user_name">
+                            <!-- error msg// -->
+                            <div *ngIf="submitted && f.user_name.errors">
+                                <small *ngIf="submitted && f.user_name.errors.required" class="text-danger"> Name is
+                                    Required</small>
+                                <small *ngIf="submitted && f.user_name.errors.minlength" class="text-danger">Minimum 2
+                                    Characters required</small>
+                            </div>
+                        </div>
+                        <div [ngClass]="{ 'is-invalid': submitted && f.gender.errors }" class="form-group d-flex justify-content-around align-item-center mr-5">
+
+                            <div>
+                                <label for="Gender">Gender</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" formControlName="gender" id="Male"
+                                        value="Male"> Male
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" formControlName="gender" id="Female"
+                                        value="Female"> Female
+                                </label>
+                            </div>
+                            
+                            <!-- <label for="Gender">Gender</label>
+                            <input type="radio" class="form-control" value="Male" name="Gender">
+                            <label for="Male">Male</label>
+
+                            <input type="radio" class="form-control" value="Female" name="Gender">
+                            <label for="Female">Female</label> -->
+                        </div>
+                        <div *ngIf="submitted && f.gender.errors" class="mb-3 mt-0">
+                            <small *ngIf="f.gender.errors.required" class="text-danger">Please select Gender</small>
+                        </div>
+                        <div class="form-group row">
+                            <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                            <div class="col-10">
+                                <input formControlName="birth_date" [ngClass]="{ 'is-invalid': submitted && f.birth_date.errors }" class="form-control" type="date" value="2011-08-19"
+                                    id="example-date-input">
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f.birth_date.errors">
+                            <small *ngIf="submitted && f.birth_date.errors.required" class="text-danger">Please select Date</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input formControlName="email_id" [ngClass]="{'is-invalid': submitted && f.email_id.errors }" type="email" class="form-control">
+                            <div *ngIf="submitted && f.email_id.errors">
+                                <small *ngIf="submitted && f.email_id.errors.required" class="text-danger">Please Enter Your Email Address</small>
+                                <small *ngIf="submitted && f.email_id.errors.email" class="text-danger">Please Enter Proper Email Address</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="MobileNo">Mobile No</label>
+                            <input formControlName="mobile" [ngClass]="{'is-invalid': submitted && f.mobile.errors }" type="tel" class="form-control" required>
+                            <div *ngIf="submitted && f.mobile.errors">
+                                <small *ngIf="submitted && f.mobile.errors.required" class="text-danger">Please Enter Your Mobile Number</small>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerID">Customer ID</label>
+                            <input formControlName="cust_id" type="tel" [ngClass]="{'is-invalid': submitted && f.cust_id.errors }" class="form-control">
+                            <div *ngIf="submitted && f.cust_id.errors">
+                                <small *ngIf="submitted && f.cust_id.errors.required" class="text-danger">Please Enter Customer Id</small>
+                            </div>
+                        </div>
+                        <div class="form-group d-flex justify-content-around align-item-center" [ngClass]="{'is-invalid': submitted && f.membership.errors }">
+                            <div class="form-group">
+                                <label for="" class="mr-5">Membership</label>
+                                <div class="form-group" class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" formControlName="membership"
+                                            value="Classic"> Classic
+                                    </label>
+                                </div>
+                                <div class="form-group" class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" formControlName="membership"
+                                            value="Silver"> Silver
+                                    </label>
+                                </div>
+                                <div class="form-group" class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" type="radio" formControlName="membership"
+                                            value="Gold"> Gold
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f.membership.errors">
+                            <small *ngIf="submitted && f.membership.errors.required" class="text-danger">Please Select Membership</small>
+                        </div>
+
+                        <div class="form-group d-flex justify-content-center align-item-center mt-5">
+                            <button class="btn btn-warning mx-2" type="reset" (click)="onReset()">Cancel</button>
+                            <button class="btn btn-success mx-2">Save</button>
+                        </div>
+
+                    </form>
+                    <!--Form End-->
+
+                    <pre>{{userProfileForm.value | json}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

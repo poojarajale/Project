@@ -1,0 +1,11 @@
+.bg-color{
+    background-color: #FDDA0D;
+}
+
+.body{
+    margin-bottom: 30px;
+}
+
+.is-invalid{
+    border: 1px solid red;
+} 
